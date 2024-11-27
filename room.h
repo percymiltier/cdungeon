@@ -6,8 +6,8 @@
 
 using namespace std;
 
-#include "door.h"
 
+// Rooms are segments of a dungeon that hold monsters and loot
 class Room
 {
     public:
@@ -15,28 +15,29 @@ class Room
         Room();
 
         // getters
-        Door getTopDoor() const;
-        Door getRightDoor() const;
-        Door getDownDoor() const;
-        Door getLeftDoor() const;
+        int getTopDoor() const;
+        int getRightDoor() const;
+        int getDownDoor() const;
+        int getLeftDoor() const;
         bool getChest() const;
         bool getMonster() const;
 
         // setters
-        void setTopDoor(Door door);
-        void setRightDoor(Door door);
-        void setDownDoor(Door door);
-        void setLeftDoor(Door door);
+        void setTopDoor(int door);
+        void setRightDoor(int door);
+        void setDownDoor(int door);
+        void setLeftDoor(int door);
         void setChest(bool c);
         void setMonster(bool m);
     private:
+        //room id
         int roomNum;
 
         // if the room has a door on each wall
-        Door topDoor;
-        Door rightDoor;
-        Door downDoor;
-        Door leftDoor;
+        int topDoor;
+        int rightDoor;
+        int downDoor;
+        int leftDoor;
 
         // things that can appear in the room
         bool chest;

@@ -8,7 +8,6 @@
 #include "player.h"
 #include "room.h"
 #include "monster.h"
-#include "door.h"
 
 using namespace std;
 
@@ -28,7 +27,6 @@ void menu(Player p) {
     } else if (in == 2) {
         // check stats
 
-        pStat(p);
     } else if (in == 3) {
         // inspect room
 
@@ -42,8 +40,8 @@ void menu(Player p) {
             menu(p);
         } else {
             // close the game
-            cout << "Goodbye, " << p.getName() << "\n";
-            exit(0);
+            //cout << "Goodbye, " << p.getName() << "\n";
+            //exit(0);
         }
     }
 }
@@ -56,15 +54,16 @@ int engine() {
     cin >> inNUM;
     if (inNUM == 0) {
         // starts a new game
-        cout << "\nWhat is your name, hero? \n";
-        cin >> inSTR;
-        Player p(inSTR);
-        cout << "\n" << inSTR << "...";
-        usleep(1000);
-        cout << "You've woken up in this dungeon with no memory of how you got here...\n";
-        usleep(1000);
-        cout << " You must escape!\n";
-        menu(p);
+
+        //cout << "\nWhat is your name, hero? \n";
+        //cin >> inSTR;
+        //Player p = Player(inSTR);
+        //cout << "\n" << inSTR << "...";
+        //usleep(1000);
+        //cout << "You've woken up in this dungeon with no memory of how you got here...\n";
+        //usleep(1000);
+        //cout << " You must escape!\n";
+        //menu(p);
     } else {
         // quits the game
         cout << "So long, traveller.\n";
@@ -79,4 +78,5 @@ int main() {
     while (1) {
         engine();
     }
+
 }

@@ -11,7 +11,7 @@ class Player
 {
     public:
         // initializer
-        Player(string name);
+        Player(string givenName);
 
         // getters
         string getName() const;
