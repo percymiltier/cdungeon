@@ -1,7 +1,6 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -23,7 +22,13 @@ class Room
         bool getChest() const;
         bool getMonster() const;
 
-        //
+        // setters
+        void setTopDoor(Door door);
+        void setRightDoor(Door door);
+        void setDownDoor(Door door);
+        void setLeftDoor(Door door);
+        void setChest(bool c);
+        void setMonster(bool m);
     private:
         int roomNum;
 

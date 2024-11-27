@@ -11,5 +11,16 @@ using namespace std;
 
 class Dungeon {
     public:
+        // make a dungeon
+        Dungeon(int rooms);
+
+        // getters
+        Room[] getRooms() const;
+
+        // setters
+        Room[] setRoom(int roomNumber);
     private:
-}
+        Room[];
+};
+
+#endif
