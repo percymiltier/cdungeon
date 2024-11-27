@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -7,7 +6,7 @@ using namespace std;
 #include "room.h"
 
 // initializes an unconnected room with a random monster and chest value
-Room Room::Room() {
+Room::Room() {
     topDoor = nullptr;
     rightDoor = nullptr;
     downDoor = nullptr;

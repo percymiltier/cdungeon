@@ -1,7 +1,6 @@
 #ifndef DOOR_H
 #define DOOR_H
 
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
