@@ -5,7 +5,6 @@
 using namespace std;
 
 #include "player.h"
-#include "main.cpp"
 
 // init
 Player::Player(string givenName) {
@@ -77,7 +76,6 @@ bool Player::useHeal() {
 
 // prints the players stats to the screen
 void Player::pStat(Player p) {
-    usleep(1000);
     cout << "\n" << p.getName() << ":\n";
     cout << "+ ---------- STATS ---------- +\n";
     cout << "LVL: " << p.getLVL() << "\n";
@@ -90,5 +88,4 @@ void Player::pStat(Player p) {
     cout << "Potions: " << p.getHeal() << "\n";
     cout << "+ --------------------------- + \n";
     cout << "CURRENT POINTS: " << p.getpts() << "\n";
-    menu(p);
 }

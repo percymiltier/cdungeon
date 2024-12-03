@@ -3,24 +3,27 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 using namespace std;
 
-#include "door.h"
 #include "room.h"
 
 class Dungeon {
     public:
         // make a dungeon
-        Dungeon(int rooms);
+        Dungeon(int num);
 
         // getters
-        Room[] getRooms() const;
+        vector<Room> getRooms() const;
+        int getNumrooms() const;
 
         // setters
-        Room[] setRoom(int roomNumber);
+        void setRoom(vector<Room> newRooms);
+        void setNumrooms(int num);
     private:
-        Room[];
+        int numrooms;
+        vector<Room> rooms;
 };
 
 #endif

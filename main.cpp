@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <ctime>
 #include <cerrno>
-#include <unistd.h>
 
 #include "player.h"
 #include "room.h"
@@ -12,10 +11,9 @@
 using namespace std;
 
 // main menu
-void menu(Player p) {
+static void menu(Player p) {
     int in;
     cout << "\nWhat will you do? \n";
-    usleep(1000);
     cout << "0: Explore the room \n1:Use Item \n2:Check Stats \n3: Inspect Room \n4:Quit game\n";
     cin >> in;
     if (in == 0) {
@@ -26,13 +24,14 @@ void menu(Player p) {
 
     } else if (in == 2) {
         // check stats
+        p.pStat(p);
+        menu(p);
 
     } else if (in == 3) {
         // inspect room
 
     } else if (in == 4) {
         // quit game
-        usleep(1000);
         cout << "\nAre you sure you want to quit? \n(Your progress will NOT be saved!) \n0: I'm not sure... \n1: Yes, quit.";
         cin >> in;
         if (in == 0) {
@@ -40,14 +39,14 @@ void menu(Player p) {
             menu(p);
         } else {
             // close the game
-            //cout << "Goodbye, " << p.getName() << "\n";
-            //exit(0);
+            cout << "Goodbye, " << p.getName() << "\n";
+            exit(0);
         }
     }
 }
 
 // begins a game
-int engine() {
+static int engine() {
     int inNUM;
     string inSTR;
     cout << "\nStart a new game?\n 0: YES\n1: QUIT\n";
@@ -55,15 +54,13 @@ int engine() {
     if (inNUM == 0) {
         // starts a new game
 
-        //cout << "\nWhat is your name, hero? \n";
-        //cin >> inSTR;
-        //Player p = Player(inSTR);
-        //cout << "\n" << inSTR << "...";
-        //usleep(1000);
-        //cout << "You've woken up in this dungeon with no memory of how you got here...\n";
-        //usleep(1000);
-        //cout << " You must escape!\n";
-        //menu(p);
+        cout << "\nWhat is your name, hero? \n";
+        cin >> inSTR;
+        Player p = Player(inSTR);
+        cout << "\n" << inSTR << "...";
+        cout << "You've woken up in this dungeon with no memory of how you got here...\n";
+        cout << " You must escape!\n";
+        menu(p);
     } else {
         // quits the game
         cout << "So long, traveller.\n";
