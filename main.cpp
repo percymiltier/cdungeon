@@ -147,6 +147,7 @@ int engine() {
 
 // main
 int main() {
+    // program introduction
     cout << "------------------------------\n";
     cout << "+ Final Project for CPSC 370 +\n";
     cout << "------------------------------\n";
@@ -154,6 +155,7 @@ int main() {
     cout << "+    Text-Based Adventure    +\n";
     cout << "+        Dungeon Game        +\n";
     cout << "------------------------------\n\n";
+
     // loop the game as long as the player wants to keep playing
     while (1) {
         engine();
