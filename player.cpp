@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 using namespace std;
 
@@ -34,6 +35,17 @@ int Player::getLockP() const { return lockP; }
 int Player::getHeal() const { return heal; }
 int Player::getpts() const { return pts; }
 
+// setters
+void Player::setLVL(int num) { LVL = num; }
+void Player::setMaxHP(int num) { maxHP = num; }
+void Player::setCurrHP(int num) { currHP = num; }
+void Player::setATK(int num) { ATK = num; }
+void Player::setEXP(int num) { EXP = num; }
+void Player::setNextLVL(int num) { nextLVL = num; }
+void Player::setGold(int num) { gold = num; }
+void Player::setLockP(int num) { lockP = num; }
+void Player::setHeal(int num) { heal = num; }
+void Player::setpts(int num) { pts = num; }
 
 // adds EXP to the player
 void Player::addEXP(int amt) {
@@ -42,6 +54,11 @@ void Player::addEXP(int amt) {
         LVL++;
         EXP -= nextLVL;
         nextLVL = nextLVL * 1.25;
+
+        // add to players stats after leveling up + restore HP as a bonus
+        ATK += 10;
+        maxHP += 15;
+        currHP = maxHP;
     }
 }
 
@@ -60,32 +77,40 @@ bool Player::usePick() {
     return false;
 }
 
-// uses a potion, returns true if successful
-bool Player::useHeal() {
-    if (heal != 0) {
+// uses a potion, returns -1 if failed, returns amount of HP restored if successful, returns -2 if HP is already full
+int Player::useHeal() {
+    if (heal != 0 && currHP != maxHP) {
+        int restore = currHP;
         heal--;
         currHP += 50;
         if (currHP > maxHP) {
             currHP = maxHP;
         }
-        return true;
+        return currHP - restore;
     }
-    return false;
+    else if (currHP == maxHP) {
+        return -2;
+    }
+    return -1;
 }
 
+// adds points for defeating monsters and getting items
+void Player::addPts(int num) {
+    pts += num;
+}
 
 // prints the players stats to the screen
 void Player::pStat(Player p) {
     cout << "\n" << p.getName() << ":\n";
     cout << "+ ---------- STATS ---------- +\n";
-    cout << "LVL: " << p.getLVL() << "\n";
-    cout << "To next level: " << p.getEXP() << "/" << p.getNextLVL() << "\n";
-    cout << "ATK: " << p.getATK() << "\n";
-    cout << "HP: " << p.getCurrHP() << "/" << p.getMaxHP() << "\n";
+    cout << "  LVL: " << p.getLVL() << "\n";
+    cout << "  To next level: " << p.getEXP() << "/" << p.getNextLVL() << "\n";
+    cout << "  ATK: " << p.getATK() << "\n";
+    cout << "  HP: " << p.getCurrHP() << "/" << p.getMaxHP() << "\n";
     cout << "+ ---------- ITEMS ---------- + \n";
-    cout << "Gold: " << p.getGold() << "\n";
-    cout << "Lockpicks: " << p.getLockP() << "\n";
-    cout << "Potions: " << p.getHeal() << "\n";
+    cout << "  Gold: " << p.getGold() << "\n";
+    cout << "  Lockpicks: " << p.getLockP() << "\n";
+    cout << "  Potions: " << p.getHeal() << "\n";
     cout << "+ --------------------------- + \n";
     cout << "CURRENT POINTS: " << p.getpts() << "\n";
 }

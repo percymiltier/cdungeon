@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 using namespace std;
 
@@ -26,6 +27,18 @@ class Player
         int getHeal() const;
         int getpts() const;
 
+        // setters
+        void setLVL(int num);
+        void setMaxHP(int num);
+        void setCurrHP(int num);
+        void setATK(int num);
+        void setEXP(int num);
+        void setNextLVL(int num);
+        void setGold(int num);
+        void setLockP(int num);
+        void setHeal(int num);
+        void setpts(int num);
+
         // adds exp to the player and levels them up if necessary
         void addEXP(int amt);
 
@@ -36,10 +49,13 @@ class Player
         bool usePick(); 
         
         // uses a potion
-        bool useHeal();
+        int useHeal();
 
         // prints the players stats to the screen
         void pStat(Player p);
+
+        // adds points for defeating monsters and getting items
+        void addPts(int num);
     private:
         string name;
         int LVL;

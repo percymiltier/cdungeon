@@ -8,6 +8,7 @@
 using namespace std;
 
 #include "room.h"
+#include "player.h"
 
 class Dungeon {
     public:
@@ -17,12 +18,20 @@ class Dungeon {
         // getters
         vector<Room> getRooms() const;
         int getNumrooms() const;
+        int getCurrRoom() const;
+        Room getRoom(int num) const;
 
         // setters
         void setRoom(vector<Room> newRooms);
         void setNumrooms(int num);
+        void setCurrRoom(int num);
+
+        // extras
+        int inspectRoom(Room room, Player p, Dungeon d);
+
     private:
         int numrooms;
+        int currRoom;
         vector<Room> rooms;
 };
 
