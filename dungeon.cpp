@@ -157,21 +157,47 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     }
     else if (inINT == goleft) {
         // go to the left room
+        cout << "\n";
+        cout << "+---+          +---+\n";
+        cout << "|   |   <---   |   |\n";
+        cout << "+---+          +---+\n\n";
         cout << "You enter the room to the left.\n\n";
         return room.getLeftDoor();
     }
     else if (inINT == goright) {
         // go to the right room
+        cout << "\n";
+        cout << "+---+          +---+\n";
+        cout << "|   |   --->   |   |\n";
+        cout << "+---+          +---+\n\n";
         cout << "You enter the room to the right.\n";
         return room.getRightDoor();
     }
     else if (inINT == goup) {
         // go to the upper room
+        cout << "\n";
+        cout << "+---+\n";
+        cout << "|   |\n";
+        cout << "+---+\n\n";
+        cout << "  ^  \n";
+        cout << "  |  \n\n";
+        cout << "+---+\n";
+        cout << "|   |\n";
+        cout << "+---+\n\n";
         cout << "You move forward.\n";
         return room.getTopDoor();
     }
     else if (inINT == godown) {
         // go back to the last room
+        cout << "\n";
+        cout << "+---+\n";
+        cout << "|   |\n";
+        cout << "+---+\n\n";
+        cout << "  |  \n";
+        cout << "  V  \n\n";
+        cout << "+---+\n";
+        cout << "|   |\n";
+        cout << "+---+\n\n";
         cout << "You decide to go back to the previous room.\n";
         return room.getDownDoor();
     }
