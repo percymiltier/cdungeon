@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -17,6 +18,9 @@ public:
 
 	// grabbers
 	string getName(string type) const;
+
+	// fanct ascii printer
+	void printMon(string type) const;
 
 private:
 	vector<string> normalNames;

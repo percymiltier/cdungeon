@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -52,7 +53,7 @@ class Player
         int useHeal();
 
         // prints the players stats to the screen
-        void pStat(Player p);
+        void pStat();
 
         // adds points for defeating monsters and getting items
         void addPts(int num);

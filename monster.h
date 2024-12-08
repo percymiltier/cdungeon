@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ class Monster
 
         // fighting
         void takeHit(int dmg);
-        int fightMonster(Monster m, Player p, int lvl);
+        int fightMonster(Monster m, Player* p, int lvl);
     private:
         string name;
         int HP;

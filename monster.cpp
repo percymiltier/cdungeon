@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -13,8 +14,8 @@ using namespace std;
 Monster::Monster(int lvl, bool isboss) {
     Names names = Names();
     if (isboss) {
-        HP = 250;
-        ATK = 70;
+        HP = 10 * lvl * 1.6;
+        ATK = 2.5 * lvl;
 
         int i = rand() % 500;
         gold = (200) + i;
@@ -24,8 +25,8 @@ Monster::Monster(int lvl, bool isboss) {
         name = names.getName("b");
     }
     else {
-        HP = 10 * lvl;
-        ATK = 2 * lvl;
+        HP = 10 * lvl * 1.25;
+        ATK = 1.25 * lvl;
 
         int i = rand() % 50;
         gold = (2 * lvl) + i;
@@ -63,7 +64,7 @@ void Monster::takeHit(int dmg) {
     HP -= dmg;
 }
 
-int Monster::fightMonster(Monster m, Player p, int lvl) {
+int Monster::fightMonster(Monster m, Player* p, int lvl) {
 
     // return codes
     //  0: player won
@@ -79,7 +80,7 @@ int Monster::fightMonster(Monster m, Player p, int lvl) {
     cout << m.name << " attacks!\n";
 
     while (fighting) {
-        if (m.getHP() <= 0 || p.getCurrHP() <= 0) {
+        if (m.getHP() <= 0 || p->getCurrHP() <= 0) {
             // done fighting
             fighting = false;
         }
@@ -103,11 +104,11 @@ int Monster::fightMonster(Monster m, Player p, int lvl) {
                 }
                 else {
                     // hit
-                    p.takeHit(DMG);
+                    p->takeHit(DMG);
                     cout << m.getName() << " swings at you. Ouch! Took " << DMG << " damage!\n\n";
                 }
 
-                cout << "CURRENT HP: " << p.getCurrHP() << "\n";
+                cout << "CURRENT HP: " << p->getCurrHP() << "\n\n";
 
                 turn = "p";
             }
@@ -119,7 +120,7 @@ int Monster::fightMonster(Monster m, Player p, int lvl) {
                 if (in == 0) {
                     // attack
                     r = rand() % 35 + 10;
-                    DMG = p.getATK() + (r * (p.getLVL() / 2));
+                    DMG = p->getATK() + (r * (p->getLVL() / 2));
 
                     // determine if it hits or misses
                     r = rand() % 50;
@@ -133,17 +134,15 @@ int Monster::fightMonster(Monster m, Player p, int lvl) {
                         cout << "You swung at the monster! It took " << DMG << " damage!\n";
                     }
 
-                    cout << "CURRENT HP: " << p.getCurrHP() << "\n";
-
                     turn = "m";
                 }
                 else if (in == 1) {
                     // heal
-                    if (p.getHeal() > 0) {
+                    if (p->getHeal() > 0) {
                         // heal player
-                        playerHP = p.getCurrHP();
-                        p.useHeal();
-                        cout << "Healed " << (p.getCurrHP() - playerHP) << " HP!\n";
+                        playerHP = p->getCurrHP();
+                        p->useHeal();
+                        cout << "Healed " << (p->getCurrHP() - playerHP) << " HP!\n";
                         turn = "m";
                     }
                     else {
@@ -174,11 +173,12 @@ int Monster::fightMonster(Monster m, Player p, int lvl) {
     }
 
     // end of battle
-    if (p.getCurrHP() > 0) {
-        p.addPts(lvl * 10 + 5);
-        p.addEXP(lvl * 10);
+    if (p->getCurrHP() > 0) {
+        p->setGold(p->getGold() + m.getGold());
+        p->addPts(lvl * 10 + 5);
+        r = rand() % 20 + 10;
+        p->addEXP(lvl * r * 0.75);
         cout << m.getName() << " was defeated!\n";
-        p.pStat(p);
         return 0;
     }
     

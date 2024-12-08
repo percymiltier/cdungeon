@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -22,12 +23,13 @@ class Dungeon {
         Room getRoom(int num) const;
 
         // setters
-        void setRoom(vector<Room> newRooms);
+        void setRooms(vector<Room> newRooms);
+        void setRoom(Room r, int num);
         void setNumrooms(int num);
         void setCurrRoom(int num);
 
         // extras
-        int inspectRoom(Room room, Player p, Dungeon d);
+        int inspectRoom(Room room, Player* p, Dungeon* d);
 
     private:
         int numrooms;

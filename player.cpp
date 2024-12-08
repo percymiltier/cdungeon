@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void Player::setpts(int num) { pts = num; }
 // adds EXP to the player
 void Player::addEXP(int amt) {
     EXP += amt;
-    if (EXP >= nextLVL) {
+    while (EXP >= nextLVL) {
         LVL++;
         EXP -= nextLVL;
         nextLVL = nextLVL * 1.25;
@@ -100,17 +101,18 @@ void Player::addPts(int num) {
 }
 
 // prints the players stats to the screen
-void Player::pStat(Player p) {
-    cout << "\n" << p.getName() << ":\n";
+void Player::pStat() {
+    Sleep(500);
+    cout << "\n" << name << ":\n";
     cout << "+ ---------- STATS ---------- +\n";
-    cout << "  LVL: " << p.getLVL() << "\n";
-    cout << "  To next level: " << p.getEXP() << "/" << p.getNextLVL() << "\n";
-    cout << "  ATK: " << p.getATK() << "\n";
-    cout << "  HP: " << p.getCurrHP() << "/" << p.getMaxHP() << "\n";
+    cout << "  LVL: " << LVL << "\n";
+    cout << "  To next level: " << EXP << "/" << nextLVL << "\n";
+    cout << "  ATK: " << ATK << "\n";
+    cout << "  HP: " << currHP << "/" << maxHP << "\n";
     cout << "+ ---------- ITEMS ---------- + \n";
-    cout << "  Gold: " << p.getGold() << "\n";
-    cout << "  Lockpicks: " << p.getLockP() << "\n";
-    cout << "  Potions: " << p.getHeal() << "\n";
+    cout << "  Gold: " << gold << "\n";
+    cout << "  Lockpicks: " << lockP << "\n";
+    cout << "  Potions: " << heal << "\n";
     cout << "+ --------------------------- + \n";
-    cout << "CURRENT POINTS: " << p.getpts() << "\n";
+    cout << "CURRENT POINTS: " << pts << "\n";
 }

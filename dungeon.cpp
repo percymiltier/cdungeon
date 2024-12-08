@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -70,12 +71,13 @@ int Dungeon::getCurrRoom() const { return currRoom; }
 Room Dungeon::getRoom(int num) const { return rooms.at(num); }
 
 // setters
-void Dungeon::setRoom(vector<Room> newRooms) { rooms = newRooms;  }
+void Dungeon::setRooms(vector<Room> newRooms) { rooms = newRooms;  }
+void Dungeon::setRoom(Room r, int num) { rooms.at(num) = r; }
 void Dungeon::setNumrooms(int num) { numrooms = num; }
 void Dungeon::setCurrRoom(int num) { currRoom = num; }
 
 // extras
-int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
+int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
 
     // return codes
     // -4:  player input an invalid value
@@ -98,6 +100,7 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     int openchest = -1;
 
     cout << "\nYou look around...\n";
+    Sleep(1000);
 
     // chest
     if (room.hasChest()) {
@@ -118,7 +121,8 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
         cout << "There is a door behind you as well.\n";
     }
 
-    cout << "What will you do?\n     " << count << ": Back to menu\n";
+    Sleep(500);
+    cout << "\nWhat will you do?\n     " << count << ": Back to menu\n";
     count++;
     if (room.getLeftDoor() != -1) {
         cout << "     " << count << ": Go left\n";
@@ -130,10 +134,12 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
         goright = count;
         count++;
     }
-    cout << "     " << count << ": Go forward\n";
-    goup = count;
-    count++;
-    if (room.getRoomNum() != 0) {
+    if (room.getTopDoor() != -1) {
+        cout << "     " << count << ": Go forward\n";
+        goup = count;
+        count++;
+    }
+    if (room.getRoomNum() != 0 && room.getDownDoor() != -1) {
         cout << "     " << count << ": Go backward\n";
         godown = count;
         count++;
@@ -153,10 +159,12 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     // selection here
     if (inINT == goback) {
         // do nothing, go back to main menu
+        Sleep(500);
         return -1;
     }
     else if (inINT == goleft) {
         // go to the left room
+        Sleep(500);
         cout << "\n";
         cout << "+---+          +---+\n";
         cout << "|   |   <---   |   |\n";
@@ -166,6 +174,7 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     }
     else if (inINT == goright) {
         // go to the right room
+        Sleep(500);
         cout << "\n";
         cout << "+---+          +---+\n";
         cout << "|   |   --->   |   |\n";
@@ -175,6 +184,7 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     }
     else if (inINT == goup) {
         // go to the upper room
+        Sleep(500);
         cout << "\n";
         cout << "+---+\n";
         cout << "|   |\n";
@@ -189,6 +199,7 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     }
     else if (inINT == godown) {
         // go back to the last room
+        Sleep(500);
         cout << "\n";
         cout << "+---+\n";
         cout << "|   |\n";
@@ -203,6 +214,7 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
     }
     else if (inINT == openchest) {
         // try to open the chest
+        Sleep(500);
         if (!(room.isChestLocked())) {
             // chest isnt locked
             r = rand() % 5;
@@ -210,23 +222,23 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
                 // get potions
                 r = rand() % 3 + 1;
                 cout << "You got " << r << " potions from the chest. Nice!\n";
-                p.setHeal(p.getHeal() + r);
+                p->setHeal(p->getHeal() + r);
                 return -2;
             }
             else {
                 // get lockpicks
                 r = rand() % 3 + 1;
                 cout << "You got " << r << " lockpicks from the chest. Nice!\n";
-                p.setLockP(p.getLockP() + r);
+                p->setLockP(p->getLockP() + r);
                 return -2;
 
             }
-            p.addPts(r * 10);
+            p->addPts(r * 10);
         }
         else {
             // chest is locked
-            if (p.getLockP() != 0) {
-                cout << "This chest is locked... Use a lockpick? (LOCKPICKS REMAINING: " << p.getLockP() << ")\n\n     0: Yes\n     1: No\n";
+            if (p->getLockP() != 0) {
+                cout << "This chest is locked... Use a lockpick? (LOCKPICKS REMAINING: " << p->getLockP() << ")\n\n     0: Yes\n     1: No\n";
                 cin >> inINT;
                 if (inINT == 0) {
                     // chest is now unlocked
@@ -234,19 +246,22 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
                     if (r < 3) {
                         // get potions
                         r = rand() % 3 + 1;
+                        Sleep(500);
                         cout << "You got " << r << " potions from the chest. Nice!\n";
-                        p.setHeal(p.getHeal() + r);
+                        p->setHeal(p->getHeal() + r);
                     }
                     else {
                         // get lockpicks
                         r = rand() % 3 + 1;
+                        Sleep(500);
                         cout << "You got " << r << " lockpicks from the chest. Nice!\n";
-                        p.setLockP(p.getLockP() + r);
+                        p->setLockP(p->getLockP() + r);
 
                     }
-                    p.addPts(r * 10);
+                    p->addPts(r * 10);
                 }
                 else {
+                    Sleep(500);
                     cout << "Please input a valid value next time.\n";
                     return -4;
                 }
@@ -257,12 +272,14 @@ int Dungeon::inspectRoom(Room room, Player p, Dungeon d) {
 
             }
             else {
+                Sleep(500);
                 cout << "Too bad! This chest is locked, and you don't have a lockpick!\n";
                 return -3;
             }
         }
     }
     else {
+        Sleep(500);
         cout << "Please input a valid value.\n";
         return -4;
     }
