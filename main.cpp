@@ -149,8 +149,14 @@ static int engine() {
         cout << "\nWhat is your name, hero? \n";
         cin >> inSTR;
         Player* p = new Player(inSTR);
-        cout << "\n" << inSTR << "...";
+        cout << "\n" << inSTR;
         Sleep(500);
+        cout << " .";
+        Sleep(250);
+        cout << " .";
+        Sleep(250);
+        cout << " .\n";
+        Sleep(250);
         cout << "You've woken up in this dungeon with no memory of how you got here...\n";
         Sleep(500);
         cout << "You must escape!\n";
