@@ -17,7 +17,7 @@ Monster::Monster(int lvl, bool isboss) {
         HP = 10 * lvl * 1.6;
         ATK = 2.5 * lvl;
 
-        int i = rand() % 500;
+        int i = rand() % 250;
         gold = (200) + i;
 
         item = true;
@@ -79,6 +79,11 @@ int Monster::fightMonster(Monster m, Player* p, int lvl) {
 
     cout << m.name << " attacks!\n";
 
+    // indicate a boss monster
+    if (m.isBoss()) {
+        cout << "Be careful " << p->getName() << ", this monster looks especially dangerous!\n\n";
+    }
+
     while (fighting) {
         if (m.getHP() <= 0 || p->getCurrHP() <= 0) {
             // done fighting
@@ -108,7 +113,9 @@ int Monster::fightMonster(Monster m, Player* p, int lvl) {
                     cout << m.getName() << " swings at you. Ouch! Took " << DMG << " damage!\n\n";
                 }
 
-                cout << "CURRENT HP: " << p->getCurrHP() << "\n\n";
+                if (p->getCurrHP() > 0) {
+                    cout << "CURRENT HP: " << p->getCurrHP() << "\n\n";
+                }
 
                 turn = "p";
             }
@@ -119,19 +126,19 @@ int Monster::fightMonster(Monster m, Player* p, int lvl) {
 
                 if (in == 0) {
                     // attack
-                    r = rand() % 35 + 10;
+                    r = rand() % 20 + 5;
                     DMG = p->getATK() + (r * (p->getLVL() / 2));
 
                     // determine if it hits or misses
                     r = rand() % 50;
                     if (r > 40) {
                         // miss
-                        cout << "You tried to swing at the monster, but you missed!\n";
+                        cout << "You tried to swing at the "<< m.getName() << ", but you missed!\n";
                     }
                     else {
                         // hit
                         m.takeHit(DMG);
-                        cout << "You swung at the monster! It took " << DMG << " damage!\n";
+                        cout << "You swung at the " << m.getName() << "! It took " << DMG << " damage!\n";
                     }
 
                     turn = "m";

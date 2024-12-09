@@ -58,7 +58,9 @@ Dungeon::Dungeon(int num) {
     // make a boss room at the middle and end of dungeon + set end of dungeon
     rooms.at(num - 1).setBossRoom(true);
     rooms.at(num - 1).setFinal(true);
+    rooms.at(num - 1).setMonster(true);
     rooms.at(num / 2).setBossRoom(true);
+    rooms.at(num / 2).setMonster(true);
 
     // monsters cannot spawn in the first room
     rooms.at(0).setMonster(false);
@@ -100,12 +102,7 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
     int openchest = -1;
 
     cout << "\nYou look around...\n";
-    Sleep(1000);
-
-    // chest
-    if (room.hasChest()) {
-        cout << "There is a chest here.\n";
-    }
+    Sleep(500);
 
     // doors
     if (room.getTopDoor() != -1) {
@@ -121,7 +118,12 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
         cout << "There is a door behind you as well.\n";
     }
 
-    Sleep(500);
+    // chest
+    if (room.hasChest()) {
+        cout << "There is a chest here.\n";
+    }
+
+    Sleep(250);
     cout << "\nWhat will you do?\n     " << count << ": Back to menu\n";
     count++;
     if (room.getLeftDoor() != -1) {
@@ -159,62 +161,62 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
     // selection here
     if (inINT == goback) {
         // do nothing, go back to main menu
-        Sleep(500);
+        Sleep(250);
         return -1;
     }
     else if (inINT == goleft) {
         // go to the left room
-        Sleep(500);
+        Sleep(250);
         cout << "\n";
-        cout << "+---+          +---+\n";
-        cout << "|   |   <---   |   |\n";
-        cout << "+---+          +---+\n\n";
+        cout << "  +---+          +---+\n";
+        cout << "  |   |   <---   |   |\n";
+        cout << "  +---+          +---+\n\n";
         cout << "You enter the room to the left.\n\n";
         return room.getLeftDoor();
     }
     else if (inINT == goright) {
         // go to the right room
-        Sleep(500);
+        Sleep(250);
         cout << "\n";
-        cout << "+---+          +---+\n";
-        cout << "|   |   --->   |   |\n";
-        cout << "+---+          +---+\n\n";
+        cout << "  +---+          +---+\n";
+        cout << "  |   |   --->   |   |\n";
+        cout << "  +---+          +---+\n\n";
         cout << "You enter the room to the right.\n";
         return room.getRightDoor();
     }
     else if (inINT == goup) {
         // go to the upper room
-        Sleep(500);
+        Sleep(250);
         cout << "\n";
-        cout << "+---+\n";
-        cout << "|   |\n";
-        cout << "+---+\n\n";
-        cout << "  ^  \n";
-        cout << "  |  \n\n";
-        cout << "+---+\n";
-        cout << "|   |\n";
-        cout << "+---+\n\n";
+        cout << "  +---+\n";
+        cout << "  |   |\n";
+        cout << "  +---+\n\n";
+        cout << "    ^  \n";
+        cout << "    |  \n\n";
+        cout << "  +---+\n";
+        cout << "  |   |\n";
+        cout << "  +---+\n\n";
         cout << "You move forward.\n";
         return room.getTopDoor();
     }
     else if (inINT == godown) {
         // go back to the last room
-        Sleep(500);
+        Sleep(250);
         cout << "\n";
-        cout << "+---+\n";
-        cout << "|   |\n";
-        cout << "+---+\n\n";
-        cout << "  |  \n";
-        cout << "  V  \n\n";
-        cout << "+---+\n";
-        cout << "|   |\n";
-        cout << "+---+\n\n";
+        cout << "  +---+\n";
+        cout << "  |   |\n";
+        cout << "  +---+\n\n";
+        cout << "    |  \n";
+        cout << "    V  \n\n";
+        cout << "  +---+\n";
+        cout << "  |   |\n";
+        cout << "  +---+\n\n";
         cout << "You decide to go back to the previous room.\n";
         return room.getDownDoor();
     }
     else if (inINT == openchest) {
         // try to open the chest
-        Sleep(500);
+        Sleep(250);
         if (!(room.isChestLocked())) {
             // chest isnt locked
             r = rand() % 5;
@@ -246,14 +248,14 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
                     if (r < 3) {
                         // get potions
                         r = rand() % 3 + 1;
-                        Sleep(500);
+                        Sleep(250);
                         cout << "You got " << r << " potions from the chest. Nice!\n";
                         p->setHeal(p->getHeal() + r);
                     }
                     else {
                         // get lockpicks
                         r = rand() % 3 + 1;
-                        Sleep(500);
+                        Sleep(250);
                         cout << "You got " << r << " lockpicks from the chest. Nice!\n";
                         p->setLockP(p->getLockP() + r);
 
@@ -261,7 +263,7 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
                     p->addPts(r * 10);
                 }
                 else {
-                    Sleep(500);
+                    Sleep(250);
                     cout << "Please input a valid value next time.\n";
                     return -4;
                 }
@@ -272,14 +274,14 @@ int Dungeon::inspectRoom(Room room, Player* p, Dungeon* d) {
 
             }
             else {
-                Sleep(500);
+                Sleep(250);
                 cout << "Too bad! This chest is locked, and you don't have a lockpick!\n";
                 return -3;
             }
         }
     }
     else {
-        Sleep(500);
+        Sleep(250);
         cout << "Please input a valid value.\n";
         return -4;
     }

@@ -57,9 +57,12 @@ void Player::addEXP(int amt) {
         nextLVL = nextLVL * 1.25;
 
         // add to players stats after leveling up + restore HP as a bonus
-        ATK += 10;
-        maxHP += 15;
-        currHP = maxHP;
+        ATK += 6;
+        maxHP += 10;
+        currHP += 10;
+        if (currHP > maxHP) {
+            currHP = maxHP;
+        }
     }
 }
 
@@ -102,7 +105,7 @@ void Player::addPts(int num) {
 
 // prints the players stats to the screen
 void Player::pStat() {
-    Sleep(500);
+    Sleep(250);
     cout << "\n" << name << ":\n";
     cout << "+ ---------- STATS ---------- +\n";
     cout << "  LVL: " << LVL << "\n";

@@ -43,14 +43,14 @@ static void menu(Player* p, Dungeon* d) {
     // Check if player has reached the end of the dungeon yet
     if (room.isFinal()) {
         // reached the end
-        Sleep(500);
+        Sleep(250);
         cout << "\n\nCongratulations! You reached the last room... there's a ladder at the end of this hallway that looks like a way out. \nYou're free now!\n";
         cout << "\nFINAL STATS:\n";
         p->pStat();
         cout << "\n\nThanks for playing!\n";
     }
     else {
-        Sleep(500);
+        Sleep(250);
         cout << "\nWhat will you do? \n";
         cout << "     0: Explore the room \n     1: Heal \n     2: Check Stats \n     3: Quit game\n";
         cin >> in;
@@ -58,7 +58,7 @@ static void menu(Player* p, Dungeon* d) {
         if (in == 0) {
 
             // explore room
-            Sleep(500);
+            Sleep(250);
             int value = d->inspectRoom(room, p, d);
             if (value >= 0) {
                 // if we moved, move the pointer too
@@ -78,27 +78,27 @@ static void menu(Player* p, Dungeon* d) {
         else if (in == 1) {
 
             // heal
-            Sleep(500);
+            Sleep(250);
             cout << "Use a potion? (Restores HP by 50)\nREMAINING POTIONS: " << p->getHeal() << "\n\n     0: Yes \n     1: No\n";
             cin >> in;
 
             if (in == 0) {
                 int i = p->useHeal();
                 if (i == -1) {
-                    Sleep(500);
+                    Sleep(250);
                     cout << "No healing items left...\n";
                 }
                 else if (i == -2) {
-                    Sleep(500);
+                    Sleep(250);
                     cout << "HP already full!\n";
                 }
                 else {
-                    Sleep(500);
+                    Sleep(250);
                     cout << "Healed " << i << "HP points.\n";
                 }
             }
             else {
-                Sleep(500);
+                Sleep(250);
                 cout << "Didn't use a potion.(Current HP: " << p->getCurrHP() << ")\n";
             }
 
@@ -108,7 +108,7 @@ static void menu(Player* p, Dungeon* d) {
         else if (in == 2) {
 
             // check stats
-            Sleep(500);
+            Sleep(250);
             p->pStat();
             menu(p, d);
 
@@ -116,17 +116,17 @@ static void menu(Player* p, Dungeon* d) {
         else if (in == 3) {
 
             // quit game
-            Sleep(500);
+            Sleep(250);
             cout << "\nAre you sure you want to quit? \n(Your progress will NOT be saved!) \n     0: I'm not sure... \n     1: Yes, quit.\n\n";
             cin >> in;
             if (in == 0) {
                 // return to menu
-                Sleep(500);
+                Sleep(250);
                 menu(p, d);
             }
             else {
                 // close the game
-                Sleep(500);
+                Sleep(250);
                 cout << "Goodbye, " << p->getName() << "\n";
                 exit(0);
             }
@@ -138,43 +138,72 @@ static void menu(Player* p, Dungeon* d) {
 static int engine() {
     int inNUM;
     string inSTR;
-    Sleep(500);
+    Sleep(250);
     cout << "\nStart a new game?\n     0: YES\n     1: QUIT\n";
     cin >> inNUM;
     if (inNUM == 0) {
         // starts a new game
 
+        // dungeon length
+        cout << "\nChoose a game length:\n     0: Short\n     1: Medium\n     2: Long\n";
+        cin >> inNUM;
+        while (inNUM != 0 && inNUM != 1 && inNUM != 2) {
+            cout << "Please enter a valid number.";
+            cin >> inNUM;
+        }
+
         // creates a new player
-        Sleep(500);
+        Sleep(250);
         cout << "\nWhat is your name, hero? \n";
         cin >> inSTR;
         Player* p = new Player(inSTR);
         cout << "\n" << inSTR;
+        Sleep(250);
+        cout << ".";
+        Sleep(250);
+        cout << ".";
+        Sleep(250);
+        cout << ".\n";
         Sleep(500);
-        cout << " .";
+        cout << "You've woken up in this dungeon with no memory of how you got here";
         Sleep(250);
-        cout << " .";
+        cout << ".";
         Sleep(250);
-        cout << " .\n";
+        cout << ".";
         Sleep(250);
-        cout << "You've woken up in this dungeon with no memory of how you got here...\n";
+        cout << ".\n";
         Sleep(500);
         cout << "You must escape!\n";
+        Sleep(500);
 
         // initializes the dungeon
-        int r = rand() % 21;
+        int r;
+        if (inNUM == 0) {
+            // short length
+            r = rand() % 10 + 5;
+        }
+        else if (inNUM == 1) {
+            // medium length
+            r = rand() % 25 + 10;
+        }
+        else if (inNUM == 2) {
+            // long length
+            r = rand() % 50 + 25;
+
+        }
+        r = rand() % 21;
         if (r < 10) {
             r += 5;
         }
         Dungeon* d = new Dungeon(r);
 
-        Sleep(500);
+        Sleep(250);
         menu(p, d);
     } else {
         // quits the game
-        Sleep(500);
+        Sleep(250);
         cout << "So long, traveller.\n";
-        Sleep(500);
+        Sleep(250);
         exit(0);
     }
     return inNUM;
